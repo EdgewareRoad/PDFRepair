@@ -3,5 +3,6 @@
 .vscode
 build
 bin
+gradle
 gradlew
 gradlew.bat
