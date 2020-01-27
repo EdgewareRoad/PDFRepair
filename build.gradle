@@ -78,7 +78,7 @@ artifacts { fatJar }
 
 publishing {
 	publications {
-		gpr(MavenPublication) {
+		PublishJar(MavenPublication) {
 			groupId 'com.fujitsu.edgewareroad'
 			artifact fatJar
 		}
@@ -87,8 +87,8 @@ publishing {
 		maven {
 			name = 'GitHubPackages'
 			credentials {
-				username = secrets.GitHub_MavenRepo_UserName
-				password = secrets.GitHub_MavenRepo_Token
+				username = project.findProperty("mvnpub.user") ?: System.getenv("USERNAME")
+				password = project.findProperty("mvnpub.key") ?: System.getenv("PASSWORD")
 			}
 			url = uri('https://maven.pkg.github.com/EdgewareRoad/PDFRepair')
 		}
