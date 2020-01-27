@@ -10,9 +10,9 @@
 apply plugin: 'java-library'
 apply plugin: 'java'
 apply plugin: 'application'
+apply plugin: 'maven-publish'
 
-
-version = '1.0'
+version = '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -75,5 +75,23 @@ task fatJar(type: Jar) {
 }
 
 artifacts { fatJar }
+
+publishing {
+	publications {
+		gpr(MavenPublication) {
+			from(components.java)
+		}
+	}
+	repositories {
+		maven {
+			name = 'GitHubPackages'
+			credentials {
+				username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+				password = project.findProperty("gpr.key") ?: System.getenv("PASSWORD")
+			}
+			url = uri('https://maven.pkg.github.com/EdgewareRoad/PDFRepair')
+		}
+	}
+}
 
 
