@@ -79,7 +79,8 @@ artifacts { fatJar }
 publishing {
 	publications {
 		gpr(MavenPublication) {
-			from(components.java)
+			groupId 'com.fujitsu.edgewareroad'
+			artifact fatJar
 		}
 	}
 	repositories {
