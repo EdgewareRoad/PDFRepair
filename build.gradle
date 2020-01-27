@@ -65,10 +65,10 @@ mainClassName = 'PDFRepair'
 task fatJar(type: Jar) {
 	manifest {
         attributes 'Implementation-Title': 'PDFRepair tool',  
-        	'Implementation-Version': version,
+        	'Implementation-Version': archiveVersion,
         	'Main-Class': 'PDFRepair'
     }
-    baseName = project.name + '-all'
+    archiveBaseName = project.name + '-all'
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
     dependsOn test
