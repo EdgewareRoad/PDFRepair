@@ -87,10 +87,10 @@ publishing {
 		maven {
 			name = 'GitHubPackages'
 			credentials {
-				username = 'EdgewareRoad'
-				password = '${{ secrets.GitHub_MavenRepo_Token }}'
+				username = ${{ secrets.GitHub_MavenRepo_UserName }}
+				password = ${{ secrets.GitHub_MavenRepo_Token }}
 			}
-			url = uri('https://maven.pkg.github.com/EdgewareRoad/PDFRepair')
+			url = uri('https://maven.pkg.github.com/${{ secrets.GitHub_MavenRepo_UserName }}/PDFRepair')
 		}
 	}
 }
