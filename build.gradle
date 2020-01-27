@@ -87,8 +87,8 @@ publishing {
 		maven {
 			name = 'GitHubPackages'
 			credentials {
-				username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-				password = project.findProperty("gpr.key") ?: System.getenv("PASSWORD")
+				username = 'EdgewareRoad'
+				password = '${{ secrets.GitHub_MavenRepo_Token }}'
 			}
 			url = uri('https://maven.pkg.github.com/EdgewareRoad/PDFRepair')
 		}
