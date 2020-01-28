@@ -18,3 +18,9 @@ For consistency's sake and to ensure maximum compliance, this tool opens PDFs an
 
 It relies upon the excellent PDFBox Java library from 
 Apache.
+
+It can either be run from the command line...
+
+> `java -jar PDFRepair-1.0.jar <inputfile> <outputfile>`
+  
+...or via the static method `repairPDF(File, File)`
