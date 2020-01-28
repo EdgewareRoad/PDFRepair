@@ -45,6 +45,16 @@ sourceSets {
 
 mainClassName = 'com.fujitsu.edgewareroad.PDFRepair'
 
+
+// the normal Jar without bundled dependencies
+jar {
+	manifest {
+        attributes 'Implementation-Title': 'PDFRepair tool',  
+        	'Implementation-Version': archiveVersion,
+        	'Main-Class': mainClassName
+    }
+}
+
 //create a single Jar with all dependencies
 task fatJar(type: Jar) {
 	manifest {
@@ -59,14 +69,22 @@ task fatJar(type: Jar) {
     dependsOn test
 }
 
-artifacts { fatJar }
+//create a Jar of the sources
+task sourcesJar(type: Jar) {
+	from sourceSets.main.allSource
+    archiveClassifier = "sources"
+}
 
 // Publishing the fat jar output to GitHub
 publishing {
 	publications {
-		PublishJar(MavenPublication) {
+		maven(MavenPublication) {
 			groupId 'com.fujitsu.edgewareroad'
-			artifact fatJar
+			artifacts = [ jar, fatJar, sourcesJar ]
+			pom {
+				name = 'PDFRepair'
+				description = 'Repairs legacy format PDF files'
+			}
 		}
 	}
 	repositories {
