@@ -75,7 +75,7 @@ task sourcesJar(type: Jar) {
     archiveClassifier = "sources"
 }
 
-// Publishing the fat jar output to GitHub
+// Publishing the output to GitHub (standard JAR, fat JAR and sources plus POM file)
 publishing {
 	publications {
 		maven(MavenPublication) {
