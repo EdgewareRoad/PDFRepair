@@ -1,3 +1,5 @@
+package com.fujitsu.edgewareroad;
+
 import static org.junit.Assert.*;
 
 import java.io.ByteArrayOutputStream;
@@ -124,10 +126,27 @@ public class PDFRepairTest {
 	}
 
 	@Test
-	public void test() throws Exception
+	public void testCommandLine() throws Exception
 	{
+		if (_outputFile.exists()) _outputFile.delete();
 		String[] args = { _inputFile.getAbsolutePath(), _outputFile.getAbsolutePath() };
 		PDFRepair.main(args);
+		
+		PreflightParser parser = new PreflightParser(_outputFile);
+		parser.parse(Format.PDF_A1A);
+		PreflightDocument document = parser.getPreflightDocument();
+		document.validate();
+		ValidationResult result = document.getResult();
+		// This is our only test at the moment and guarantees that PDFRepair hasn't broken anything
+		assertTrue("Output file is not PDF_A1A", result.isValid());
+	}
+
+
+	@Test
+	public void testAPICall() throws Exception
+	{
+		if (_outputFile.exists()) _outputFile.delete();
+		PDFRepair.repairPDF(_inputFile, _outputFile);
 		
 		PreflightParser parser = new PreflightParser(_outputFile);
 		parser.parse(Format.PDF_A1A);

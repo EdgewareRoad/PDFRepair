@@ -1,3 +1,5 @@
+package com.fujitsu.edgewareroad;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -6,7 +8,6 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
-import javax.xml.transform.TransformerException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 
@@ -17,15 +18,29 @@ import org.apache.pdfbox.io.IOUtils;
 import org.apache.pdfbox.pdfparser.PDFStreamParser;
 
 /**
- * Creates a simple PDF/A document.
+ * A class for repairing a PDF document which is valid at the file level but may have potential
+ * incompatibilities with the PDF specification at the page level.
+ * 
+ * It runs as a command line with two arguments, an input file and output file.
  */
 public class PDFRepair
 {
+	// Private constructor
     private PDFRepair()
     {
     }
     
-    public static void main(String[] args) throws IOException, TransformerException
+    public class PDFRepairException extends Exception
+    {
+		/**
+		 * Generated serial version UID 
+		 */
+		private static final long serialVersionUID = -8399931075878335431L;
+    	
+    }
+    
+    // main method for use as a command line
+    public static void main(String[] args) throws IOException
     {
         if (args.length != 2)
         {
@@ -37,7 +52,13 @@ public class PDFRepair
         String inputFile = args[0];
         String outputFile = args[1];
 
-        try (PDDocument doc = PDDocument.load(new File(inputFile)))
+        repairPDF(new File(inputFile), new File(outputFile));
+    }
+    
+    // Public static method to repair a PDF file from input string paths
+    public static void repairPDF(File inputFile, File outputFile) throws IOException
+    {
+        try (PDDocument doc = PDDocument.load(inputFile))
         {
         	for (PDPage page : doc.getPages())
         	{
@@ -70,8 +91,9 @@ public class PDFRepair
             doc.close();
         }
     }
-    
 
+    // Private method to take the content of a page as an input stream and to turn this into a repaired string representation
+    // which can be injected back into the page.
     private static String getContentStreamDocument(InputStream inputStream)
     {
         StringBuffer docu = new StringBuffer();
@@ -92,6 +114,8 @@ public class PDFRepair
         return docu.toString();
     }
 
+    // Private static string to write a token (operator or operand)
+    // Hat tip for the PDFBox debugger for how to do this.
     private static void writeToken(Object obj, StringBuffer docu)
     {
         if (obj instanceof Operator)
@@ -104,6 +128,8 @@ public class PDFRepair
         }
     }
 
+    // Private static string to write an operand to the output
+    // Hat tip for the PDFBox debugger for how to do this.
     private static void writeOperand(Object obj, StringBuffer docu) 
     {
         if (obj instanceof COSName)
@@ -187,6 +213,8 @@ public class PDFRepair
         }
     }
 
+    // Private static string to write operators to the output
+    // Hat tip for the PDFBox debugger for how to do this.
     private static void addOperators(Object obj, StringBuffer docu) 
     {
         Operator op = (Operator) obj;
