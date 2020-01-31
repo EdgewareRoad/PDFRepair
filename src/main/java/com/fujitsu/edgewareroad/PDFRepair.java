@@ -1,3 +1,6 @@
+/*
+	Copyright Fujitsu 2020
+*/
 package com.fujitsu.edgewareroad;
 
 import java.io.ByteArrayInputStream;
