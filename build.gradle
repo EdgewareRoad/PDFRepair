@@ -17,13 +17,13 @@ repositories {
 
 dependencies {
     // Used at compilation time and for inclusion in the fat jar
-    implementation 'org.apache.pdfbox:pdfbox:2.0.18'
-    implementation 'org.apache.pdfbox:xmpbox:2.0.18'
-    implementation 'org.apache.pdfbox:fontbox:2.0.18'
+    implementation 'org.apache.pdfbox:pdfbox:2.0.23'
+    implementation 'org.apache.pdfbox:xmpbox:2.0.23'
+    implementation 'org.apache.pdfbox:fontbox:2.0.23'
     
     // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.apache.pdfbox:preflight:2.0.18'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.apache.pdfbox:preflight:2.0.23'
 }
 
 
