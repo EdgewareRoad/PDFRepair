@@ -14,4 +14,4 @@ jobs:
       with:
         java-version: 11
     - name: Build with Gradle
-      run: gradle fatJar publish -Pmvnpub.user="${{ secrets.GITHUB_MAVENREPO_USERNAME }}" -Pmvnpub.key="${{ secrets.GITHUB_MAVENREPO_TOKEN }}" --warning-mode all
+      run: gradle fatJar publish -Pmvnpub.user="${{ secrets.MAVENREPO_USER }}" -Pmvnpub.key="${{ secrets.MAVENREPO_TOKEN }}" --warning-mode all
