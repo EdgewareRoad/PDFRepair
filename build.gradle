@@ -85,7 +85,7 @@ publishing {
 			groupId 'com.fujitsu.edgewareroad'
 			artifacts = [ jar, fatJar, sourcesJar ]
 			pom {
-				name = 'PDFRepair'
+				name = 'pdfrepair'
 				description = 'Repairs legacy format PDF files'
 			}
 			pom.withXml {
