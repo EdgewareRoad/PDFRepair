@@ -24,6 +24,8 @@ dependencies {
     // Use JUnit test framework
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.apache.pdfbox:preflight:2.0.23'
+    testImplementation group: 'jakarta.xml.bind', name: 'jakarta.xml.bind-api', version: '2.3.3'
+    testImplementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.3'
 }
 
 
